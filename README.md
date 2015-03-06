@@ -1,2 +1,2 @@
 # php-functions
-Utility functions
+Utility functions to make life easier.

@@ -94,3 +94,15 @@ function is_domain($string)
 	return preg_match($hs_patterns['domain'], $string);
 } // - - end of is_domain - - - - -
 
+function rand_string($algo = 0) {
+	$algo = abs($algo);
+	$algos = array(
+		'sha1',
+		'sha224',
+		'sha256',
+		'sha384',
+	);
+	$algo = empty($algos[$algo]) ? $algos[0] : $algos[$algo];
+	$hash = hash($algo, crypt(time()."+".mt_rand()));
+	return trim(base64_encode($hash),"=");
+}

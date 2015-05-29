@@ -7,9 +7,6 @@ class MySQLiTools extends mysqli
 	public function getRows($table, $fields, $conditions = false) {
 		$rows = array();
 		if(!empty($table) && !empty($fields)) {
-			$table = $this->escape_string($table);
-			$fields = $this->escape_string($fields);
-			$conditions = $this->escape_string($conditions);
 			$where = "";
 			if(!empty($conditions)) {
 				$where = "WHERE $conditions";
@@ -28,10 +25,6 @@ class MySQLiTools extends mysqli
 	public function getRowsAsKeyArray($table, $key_field, $fields, $conditions = false) {
 		$rows = array();
 		if(!empty($table) && !empty($key_field) && !empty($fields)) {
-			$table = $this->escape_string($table);
-			$key_field = $this->escape_string($key_field);
-			$fields = $this->escape_string($fields);
-			$conditions = $this->escape_string($conditions);
 			$where = "";
 			if(!empty($conditions)) {
 				$where = "WHERE $conditions";
@@ -52,7 +45,6 @@ class MySQLiTools extends mysqli
 	public function insertRow($table, $row_data) {
 		$new_id = false;
 		if(!empty($table) && !empty($row_data) && is_array($row_data)) {
-			$table = $this->escape_string($table);
 			$fields = array_keys($row_data);
 			$values = array_values($row_data);
 			foreach($values as $i => $value) {
@@ -72,7 +64,6 @@ class MySQLiTools extends mysqli
 	public function updateRow($table, $row_data, $condition) {
 		$success = false;
 		if(!empty($table) && !empty($row_data) && !empty($condition) && is_array($row_data)) {
-			$table = $this->escape_string($table);
 			$set = array();
 			foreach($row_data as $field => $value) {
 				$value = $this->escape_string($value);
@@ -87,7 +78,6 @@ class MySQLiTools extends mysqli
 				}
 				$where = implode(" AND ", $c);
 			} else {
-				$condition = $this->escape_string($condition);
 				$where = $condition;
 			}
 			$query = "UPDATE $table SET $set WHERE $where LIMIT 1";

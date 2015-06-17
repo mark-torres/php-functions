@@ -11,7 +11,7 @@ function curl_download($file_url, $dst_path) {
 		return false;
 	}
 	// remove file if already exists
-	if (file_exists($dst_path)) {
+	if (file_exists($dst_path) && is_file($dst_path)) {
 		if (!unlink($dst_path)) {
 			trigger_error("Error existing destination file", E_USER_WARNING);
 			return false;

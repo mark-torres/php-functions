@@ -73,6 +73,7 @@ function asciify_string($string)
 	$patterns = array_keys($foreign_characters);
 	$replacements = array_values($foreign_characters);
 	$ascii_string = preg_replace($patterns, $replacements, $string);
+	$ascii_string = iconv( mb_detect_encoding($ascii_string), 'ASCII//IGNORE', $ascii_string );
 	return $ascii_string;
 } // - - end of asciify_string - - - - -
 

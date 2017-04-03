@@ -15,7 +15,10 @@ class HSMultiCache
 	// handlers
 	private $mongo = false;
 	private $mongoCollection = false;
-	
+
+	// ===============
+	// = CONSTRUCTOR =
+	// ===============
 	function __construct($filesDir, $options = array()) {
 		if (!is_array($options)) {
 			$options = array();
@@ -54,7 +57,7 @@ class HSMultiCache
 					$this->mongoCollection = $my_db->selectCollection($name);
 				}
 			} catch (Exception $e) {
-				$this->statusMongo = $e->getMessage(); 
+				$this->statusMongo = $e->getMessage();
 			}
 		} else {
 			$this->statusMongo = "MongoDB extension is not installed.";
@@ -71,6 +74,25 @@ class HSMultiCache
 		} else {
 			$this->statusAPC = "Extension is not installed";
 		}
-		
+
+	}
+
+	// =============
+	// = SAVE DATA =
+	// =============
+	public function store($key, $data, $ttl = 600) {
+		# code...
+	}
+	// ============
+	// = GET DATA =
+	// ============
+	public function fetch($key) {
+		# code...
+	}
+	// ===============
+	// = DELETE DATA =
+	// ===============
+	public function delete($key) {
+		# code...
 	}
 }

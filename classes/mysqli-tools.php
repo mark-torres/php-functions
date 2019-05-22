@@ -13,15 +13,17 @@ class MySQLiTools extends mysqli
 			}
 			$query = "SELECT $fields FROM $table $where";
 			$res = $this->query($query);
-			$res->data_seek(0);
-			while($row = $res->fetch_assoc()) {
-				$rows[] = $row;
+			if ($res->num_rows > 0) {
+				$res->data_seek(0);
+				while($row = $res->fetch_assoc()) {
+					$rows[] = $row;
+				}
+				$res->free();
 			}
-			$res->free();
 		}
 		return $rows;
 	}
-	
+
 	public function getRowsAsKeyArray($table, $key_field, $fields, $conditions = false) {
 		$rows = array();
 		if(!empty($table) && !empty($key_field) && !empty($fields)) {
@@ -31,17 +33,19 @@ class MySQLiTools extends mysqli
 			}
 			$query = "SELECT $key_field, $fields FROM $table $where";
 			$res = $this->query($query);
-			$res->data_seek(0);
-			while($row = $res->fetch_assoc()) {
-				$key = $row[$key_field];
-				unset($row[$key_field]);
-				$rows[ $key ] = $row;
+			if ($res->num_rows > 0) {
+				$res->data_seek(0);
+				while($row = $res->fetch_assoc()) {
+					$key = $row[$key_field];
+					unset($row[$key_field]);
+					$rows[ $key ] = $row;
+				}
+				$res->free();
 			}
-			$res->free();
 		}
 		return $rows;
 	}
-	
+
 	public function insertRow($table, $row_data) {
 		$new_id = false;
 		if(!empty($table) && !empty($row_data) && is_array($row_data)) {
@@ -60,7 +64,7 @@ class MySQLiTools extends mysqli
 		}
 		return $new_id;
 	}
-	
+
 	public function updateRow($table, $row_data, $condition) {
 		$success = false;
 		if(!empty($table) && !empty($row_data) && !empty($condition) && is_array($row_data)) {

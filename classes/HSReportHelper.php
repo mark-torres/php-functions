@@ -10,7 +10,12 @@ class HSReportHelper
 	{
 		$this->file = &$file;
 		$this->format = $format;
-		$this->fileName = sprintf('report_%d.%s', time(), $format);
+		$this->fileName = sprintf('report_%d', time());
+	}
+
+	public function setFileName($fileName)
+	{
+		$this->fileName = $fileName;
 	}
 
 	public function httpHeaders()
@@ -30,7 +35,12 @@ class HSReportHelper
 		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 		// force download file
 		if (in_array($this->format, ['csv','xls'])) {
-			header(sprintf('Content-Disposition: attachment;filename="%s"', $this->fileName));
+			header(
+				sprintf(
+					'Content-Disposition: attachment;filename="%s.%s"',
+					$this->fileName, $this->format
+				)
+			);
 		}
 	}
 

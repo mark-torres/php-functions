@@ -50,7 +50,9 @@ class HSReportHelper
 			$html = '';
 			$html .= '<!DOCTYPE html><html><head><meta charset="utf-8">';
 			$html .= '<title>'.htmlentities($this->fileName).'</title>';
-			$html .= '</head><body><table><thead><tr>';
+			$html .= '</head><body>';
+			$html .= '<table border="1" style="border-collapse:collapse" cellpadding="5">';
+			$html .= '<thead><tr>';
 			foreach ($colNames as $name) {
 				$html .= '<th>'.htmlentities($name).'</th>';
 			}

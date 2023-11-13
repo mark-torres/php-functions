@@ -70,7 +70,10 @@ class HSReportHelper
 			$html = '';
 			$html .= '<tr>';
 			foreach ($row as $val) {
-				$html .= '<td>'.htmlentities($val).'</td>';
+				if (!empty($val)) {
+					$val = htmlentities($val);
+				}
+				$html .= '<td>'.$val.'</td>';
 			}
 			$html .= '</tr>';
 			$html .= "\n";
@@ -87,6 +90,37 @@ class HSReportHelper
 			$html .= '</tbody></table></body></html>';
 			fwrite($this->file, $html);
 		}
+	}
+
+	public static function printTableHeader($colNames)
+	{
+		$html = '<table border="1" style="border-collapse:collapse" cellpadding="5">';
+		$html .= '<thead><tr>';
+		foreach ($colNames as $name) {
+			$html .= '<th>'.htmlentities($name).'</th>';
+		}
+		$html .= '</tr></thead><tbody>';
+		$html .= "\n";
+		echo $html;
+	}
+
+	public static function printTableRow($row)
+	{
+		$html = '<tr>';
+		foreach ($row as $val) {
+			if (!empty($val)) {
+				$val = htmlentities($val);
+			}
+			$html .= '<td>'.$val.'</td>';
+		}
+		$html .= '</tr>';
+		$html .= "\n";
+		echo $html;
+	}
+
+	public static function printTableFooter()
+	{
+		echo '</tbody></table>'."\n";
 	}
 }
 ?>
